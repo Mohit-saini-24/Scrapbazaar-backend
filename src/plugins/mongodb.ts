@@ -10,7 +10,7 @@ async function connectMongo(fastify: FastifyInstance) {
 	set('toJSON', { useProjection: true });
 
 	connection.on('connected', () => {
-		fastify.log.info('MongoDB is Connected ✅');
+		fastify.log.info(`MongoDB is Connected ✅ ${serverConfig.DB_STRING}`);
 	});
 	connection.on('disconnected', (reason) => {
 		fastify.log.error('MongoDB is Disconnected ❌', reason);

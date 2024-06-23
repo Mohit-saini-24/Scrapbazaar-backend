@@ -3,8 +3,10 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
+		"watch": "tsc -w",
 		"build": "tsc -p tsconfig.json",
-		"start": "node dist/server.js"
+		"start": "node dist/server.js",
+		"dev": "nodemon dist/server.js"
 	},
 	"keywords": [],
 	"author": "",
