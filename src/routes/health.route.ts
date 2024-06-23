@@ -6,6 +6,6 @@ const healthHandler = async (request: FastifyRequest) => {
 };
 
 export const healthRoute = (fastify: FastifyInstance, {}, done: () => void) => {
-	fastify.post<{}>(routeConfig.health.url, routeConfig.health, healthHandler);
+	fastify.get<{}>(routeConfig.health.url, routeConfig.health, healthHandler);
 	done();
 };
