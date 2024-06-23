@@ -1,4 +1,3 @@
-import fastifyPlugin from 'fastify-plugin';
 import mongoose from 'mongoose';
 import { FastifyInstance } from 'fastify';
 import serverConfig from '../config/serverConfig';
@@ -32,4 +31,4 @@ async function connectMongo(fastify: FastifyInstance) {
 	}
 }
 
-export default fastifyPlugin(connectMongo, { name: 'fastify-mongo-connect' });
+export default connectMongo;
