@@ -2,8 +2,9 @@ import 'dotenv/config';
 import fastify, { FastifyInstance } from 'fastify';
 import app from './app';
 import serverConfig from './config/serverConfig';
+import connectMongo from './database/mongodb';
 
-const serverUp = () => {
+const serverUp = async () => {
 	const server: FastifyInstance = fastify({
 		logger: true,
 	});
@@ -12,6 +13,7 @@ const serverUp = () => {
 		port: Number(serverConfig.PORT),
 		host: serverConfig.HOST,
 	});
+	await connectMongo(fastify);
 	void server.ready((err) => {
 		if (err) {
 			server.log.error(err);
