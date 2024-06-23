@@ -5,6 +5,7 @@ import serverConfig from './config/serverConfig';
 import connectMongo from './database/mongodb';
 
 const serverUp = async () => {
+	await connectMongo();
 	const server: FastifyInstance = fastify({
 		logger: true,
 	});
@@ -13,7 +14,6 @@ const serverUp = async () => {
 		port: Number(serverConfig.PORT),
 		host: serverConfig.HOST,
 	});
-	await connectMongo(fastify);
 	void server.ready((err) => {
 		if (err) {
 			server.log.error(err);
