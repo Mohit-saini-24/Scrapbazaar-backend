@@ -12,7 +12,7 @@ const serverUp = async () => {
 	server.register(app);
 	void server.listen({
 		port: Number(serverConfig.PORT),
-		// host: serverConfig.HOST,
+		host: serverConfig.HOST,
 	});
 	void server.ready((err) => {
 		if (err) {

@@ -1,0 +1,12 @@
+services:
+    app:
+        image: scrap:latest
+        ports:
+            - '0.0.0.0:3000:3000'
+        environment:
+            - NODE_ENV=production
+            - DB_STRING=mongodb://mongo.prv:27017
+        volumes:
+            - .:/home/node/source
+        extra_hosts:
+            - mongo.prv:${systemIP}
