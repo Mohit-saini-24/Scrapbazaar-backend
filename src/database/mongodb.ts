@@ -24,7 +24,8 @@ async function connectMongo() {
 	});
 
 	try {
-		await connect(serverConfig.DB_STRING);
+		// @ts-ignore
+		await connect(serverConfig?.DB_STRING);
 	} catch (error) {
 		console.error('Mongo connect error', error);
 		throw error;

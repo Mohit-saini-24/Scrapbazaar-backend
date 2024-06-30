@@ -12,17 +12,15 @@ const serverUp = async () => {
 	server.register(app);
 	void server.listen({
 		port: Number(serverConfig.PORT),
-		host: serverConfig.HOST,
+		host: '0.0.0.0',
 	});
 	void server.ready((err) => {
 		if (err) {
 			server.log.error(err);
 			process.exit(1);
 		}
-		server.log.info(`server listening on http://${serverConfig.HOST}:${serverConfig.PORT}`);
-		server.log.info(
-			`Browse your REST API at %s%s http://${serverConfig.HOST}:${serverConfig.PORT}/explorer`,
-		);
+		server.log.info(`server config :: ${JSON.stringify(serverConfig)}`);
+		server.log.info(`server listening on http://0.0.0.0:${serverConfig.PORT}`);
 	});
 };
 serverUp();
