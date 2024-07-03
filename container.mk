@@ -17,4 +17,3 @@ tail_logs := docker logs -n 50 -f $(folder)
 bash := docker exec -it $(folder) bash
 
 ash := docker exec -it $(folder) ash
-

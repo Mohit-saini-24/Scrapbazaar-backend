@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fastify, { FastifyInstance } from 'fastify';
 import app from './app';
 import serverConfig from './config/serverConfig';
-import connectMongo from './database/mongodb';
+import connectMongo from './config/mongodb.connection';
 
 const serverUp = async () => {
 	await connectMongo();

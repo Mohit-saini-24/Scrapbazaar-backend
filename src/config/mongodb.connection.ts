@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { FastifyInstance } from 'fastify';
-import serverConfig from '../config/serverConfig';
+import serverConfig from './serverConfig';
 
 async function connectMongo() {
 	const { set, connection, connect } = mongoose;
