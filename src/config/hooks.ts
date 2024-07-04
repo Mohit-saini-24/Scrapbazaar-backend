@@ -2,14 +2,15 @@ import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { validateSchema } from './input.validation';
 import { ServiceError } from './error';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
+import { randomUUID } from 'crypto';
+import logger from './logger';
+import fp from 'fastify-plugin';
 
-export const preValidation = async (request: FastifyRequest, _reply: FastifyReply) => {
+const preValidation = async (request: FastifyRequest, _reply: FastifyReply) => {
 	try {
 		const pathSplit = request?.url?.split('/');
 		const joiSchemaName = pathSplit[pathSplit?.length - 1];
-		request.log.info(
-			`joi schema name in request, ${joiSchemaName}, ${pathSplit}, ${pathSplit.length}, ${request.url}`,
-		);
+		request.log.info(`joi schema name in request, ${joiSchemaName}, ${pathSplit}, ${pathSplit.length}, ${request.url}`);
 		const body = request?.body ?? {};
 		if (joiSchemaName) await validateSchema(joiSchemaName, body);
 	} catch (error) {
@@ -25,7 +26,7 @@ export const preValidation = async (request: FastifyRequest, _reply: FastifyRepl
 	}
 };
 
-export const errorHook = (error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
+const errorHook = (error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
 	request.log.error(`inside error hook : ${error}`);
 	if (error instanceof ServiceError) {
 		return reply.code(error?.error?.statusCode).send({ error: error?.error });
@@ -45,3 +46,14 @@ export const errorHook = (error: FastifyError, request: FastifyRequest, reply: F
 		},
 	});
 };
+
+const onRequest = async (request: FastifyRequest, _reply: FastifyReply) => {
+	request.id = randomUUID();
+	logger.info(`uniqueId ${request.id}`);
+};
+
+export default fp(async (fastify, _opts) => {
+	fastify.addHook('preValidation', preValidation);
+	fastify.addHook('onRequest', onRequest);
+	fastify.setErrorHandler(errorHook);
+});

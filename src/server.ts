@@ -1,13 +1,14 @@
 import 'dotenv/config';
-import fastify, { FastifyInstance } from 'fastify';
+import fastify, { FastifyBaseLogger, FastifyInstance } from 'fastify';
 import app from './app';
 import serverConfig from './config/serverConfig';
 import connectMongo from './config/mongodb.connection';
+import logger from './config/logger';
 
 const serverUp = async () => {
 	await connectMongo();
 	const server: FastifyInstance = fastify({
-		logger: true,
+		logger: logger as unknown as FastifyBaseLogger,
 	});
 	server.register(app);
 	void server.listen({
@@ -16,11 +17,11 @@ const serverUp = async () => {
 	});
 	void server.ready((err) => {
 		if (err) {
-			server.log.error(err);
+			logger.error(err);
 			process.exit(1);
 		}
-		server.log.info(`server config :: ${JSON.stringify(serverConfig)}`);
-		server.log.info(`server listening on http://0.0.0.0:${serverConfig.PORT}`);
+		logger.info(`server config :: ${JSON.stringify(serverConfig)}`);
+		logger.info(`server listening on http://0.0.0.0:${serverConfig.PORT}`);
 	});
 };
 serverUp();

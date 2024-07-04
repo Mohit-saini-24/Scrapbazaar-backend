@@ -19,11 +19,14 @@
 		"fastify-plugin": "^4.5.1",
 		"http-status-codes": "^2.3.0",
 		"joi": "^17.13.3",
-		"mongoose": "^8.4.3"
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.4.3",
+		"pino": "^9.2.0"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.2",
 		"@types/node": "^20.14.8",
+		"json-schema-to-ts": "^3.1.0",
 		"typescript": "^5.5.2"
 	}
 }

@@ -1,18 +1,18 @@
 {
-  "tabWidth": 4,
-  "useTabs": true,
-  "semi": true,
-  "bracketSameLine": true,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "arrowParens": "always",
-  "printWidth": 100,
-  "overrides": [
-    {
-      "files": "*.ts",
-      "options": {
-        "parser": "typescript"
-      }
-    }
-  ]
+	"tabWidth": 4,
+	"useTabs": true,
+	"semi": true,
+	"bracketSameLine": true,
+	"singleQuote": true,
+	"trailingComma": "all",
+	"arrowParens": "always",
+	"printWidth": 200,
+	"overrides": [
+		{
+			"files": "*.ts",
+			"options": {
+				"parser": "typescript"
+			}
+		}
+	]
 }

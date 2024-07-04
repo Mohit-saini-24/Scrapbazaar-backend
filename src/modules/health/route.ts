@@ -1,5 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
-import { healthHandler } from './handler';
+import type { FastifyPluginAsync } from 'fastify';
 
 const routeDef = {
 	health: {
@@ -8,7 +7,10 @@ const routeDef = {
 	},
 };
 
-export default (fastify: FastifyInstance, {}, done: () => void) => {
-	fastify.get<{}>(routeDef.health.url, routeDef.health, healthHandler);
-	done();
+const routes: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
+	fastify.get<{}>(routeDef.health.url, { schema: routeDef.health.schema }, async (_request, reply) => {
+		reply.send({ status: 'OK' });
+	});
 };
+
+export default routes;

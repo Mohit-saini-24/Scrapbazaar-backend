@@ -1,8 +1,6 @@
-import fp from 'fastify-plugin';
+import type { FastifyPluginAsync } from 'fastify';
 import multipart from '@fastify/multipart';
-import { errorHook, preValidation } from '../config/hooks';
-export default fp(async (fastify, _opts) => {
+const plugins: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
 	fastify.register(multipart);
-	fastify.addHook('preValidation', preValidation);
-	fastify.setErrorHandler(errorHook);
-});
+};
+export default plugins;
