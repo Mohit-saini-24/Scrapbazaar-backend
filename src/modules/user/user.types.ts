@@ -38,3 +38,8 @@ export const LoginBodyResponse = {
 		expiry: { type: 'number' },
 	},
 } as const;
+
+export interface TokenData {
+	userId: string;
+	role: string;
+}

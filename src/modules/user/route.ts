@@ -29,6 +29,8 @@ const routes: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
 		return await registerHandler(body);
 	});
 	fastify.post<{ Body: FromSchema<typeof LoginBody> }>(routeDef.login.url, routeDef.login, async (request, reply) => {
+		console.log('request.body');
+		console.log(request.body);
 		const body = {
 			username: request.body.username,
 			password: request.body.password,
