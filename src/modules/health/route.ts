@@ -2,7 +2,7 @@ import type { FastifyPluginAsync } from 'fastify';
 
 const routeDef = {
 	health: {
-		url: '/api/health',
+		url: '/api/v1/health',
 		schema: {},
 	},
 };

@@ -8,8 +8,24 @@ import serverConfig from '../../config/serverConfig';
 import { TokenData } from '../user/user.types';
 
 const routeDef = {
-	listScrap: {
-		url: '/api/v1/buyer/list',
+	createOrder: {
+		method: 'POST',
+		url: '/api/v1/seller/createOrder',
+		schema: {},
+	},
+	updateOrder: {
+		method: 'POST',
+		url: '/api/v1/seller/updateOrder',
+		schema: {},
+	},
+	getOrder: {
+		method: 'GET',
+		url: '/api/v1/seller/getOrderById/:orderId',
+		schema: {},
+	},
+	getAllOrders: {
+		method: 'GET',
+		url: '/api/v1/seller/getAllOrders',
 		schema: {},
 	},
 };
@@ -26,7 +42,7 @@ const routes: FastifyPluginAsync = async function (fastify, _opts): Promise<void
 			throw new ServiceError(StatusCodes.UNAUTHORIZED, getReasonPhrase(StatusCodes.UNAUTHORIZED));
 		}
 	});
-	fastify.post<{}>(routeDef.listScrap.url, { schema: routeDef.listScrap.schema }, async (request: FastifyRequest, reply: FastifyReply) => {
+	fastify.post<{}>(routeDef.createOrder.url, { schema: routeDef.createOrder.schema }, async (request: FastifyRequest, reply: FastifyReply) => {
 		const userData = await request.userdata();
 		logger.info(userData);
 	});

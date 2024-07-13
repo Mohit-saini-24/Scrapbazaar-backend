@@ -47,7 +47,7 @@ Buyer or Seller
 
 Buyer can buy specific category scrap or anything.
 
-endpoint : /api/registration
+endpoint : /api/v1/registration
 
 payload
 
@@ -73,7 +73,7 @@ payload
 
 ### Login
 
-endpoint : /api/login
+endpoint : /api/v1/login
 
 payload
 

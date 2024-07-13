@@ -1,6 +1,15 @@
-import type { FastifyPluginAsync } from 'fastify';
+import fp from 'fastify-plugin';
 import multipart from '@fastify/multipart';
-const plugins: FastifyPluginAsync = async (fastify, _opts): Promise<void> => {
-	fastify.register(multipart);
-};
-export default plugins;
+import cors from '@fastify/cors';
+import type { FastifyCorsOptions } from '@fastify/cors';
+import type { FastifyMultipartOptions } from '@fastify/multipart';
+
+export default fp<FastifyMultipartOptions | FastifyCorsOptions>(async (fastify, _opts) => {
+	await fastify.register(multipart, {
+		attachFieldsToBody: true,
+	});
+	await fastify.register(cors, {
+		origin: '*',
+		credentials: true,
+	});
+});

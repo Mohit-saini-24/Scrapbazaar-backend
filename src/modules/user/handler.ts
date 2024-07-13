@@ -15,13 +15,15 @@ export const registerHandler = async (body: FromSchema<typeof RegisterBody>) => 
 		username: body.username,
 		password: hash,
 		role: body.role,
+		usernameType: body.usernameType,
 	});
 	try {
 		await data.save();
-		return {
-			data: {},
-			message: 'user registered successfully',
+		const loginBody = {
+			username: body.username,
+			password: body.password,
 		};
+		return await loginHandler(loginBody);
 	} catch (error: any) {
 		logger.error(`error ${error}`);
 		if (error?.message?.includes('E11000 duplicate key error collection')) {
@@ -41,12 +43,15 @@ export const loginHandler = async (body: FromSchema<typeof LoginBody>) => {
 		const toEncrypt = {
 			userId: data._id,
 			role: data.role,
+			exp: 31536000,
 		};
-		const token: string = jwt.sign(toEncrypt, serverConfig.SECRET);
+		const accessToken: string = jwt.sign(toEncrypt, serverConfig.SECRET);
 		return {
-			token,
-			role: data.role,
-			username: data.username,
+			accessToken,
+			user: {
+				username: data.username,
+				role: data.role,
+			},
 		};
 	}
 	throw new ServiceError(StatusCodes.UNAUTHORIZED, getReasonPhrase(StatusCodes.UNAUTHORIZED));

@@ -4,6 +4,7 @@ const registerSchema = Joi.object({
 	username: Joi.string().required(),
 	password: Joi.string().required(),
 	role: Joi.string().uppercase().valid('BUYER', 'SELLER').required(),
+	usernameType: Joi.string().valid('EMAIL', 'PHONE').required(),
 	mobileNumber: Joi.string(),
 	email: Joi.string(),
 	scrapCategory: Joi.array(),
