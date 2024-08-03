@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi, { ObjectSchema } from 'joi';
 
 const registerSchema = Joi.object({
 	username: Joi.string().required(),
@@ -19,10 +19,6 @@ const registerSchema = Joi.object({
 	mobileNumberVerified: Joi.boolean().default(false),
 });
 
-const schemaToValidate = {
-	register: registerSchema,
-};
-
 const config = {
 	abortEarly: true,
 	allowUnknown: false,
@@ -34,10 +30,11 @@ const config = {
 	},
 };
 
+const schemaToValidate: Record<string, ObjectSchema<any>> = {
+	register: registerSchema,
+};
 export const validateSchema = async (joiSchemaName: string, body: Object = {}) => {
-	// @ts-ignore
 	if (schemaToValidate[joiSchemaName]) {
-		// @ts-ignore
 		await schemaToValidate[joiSchemaName]?.validateAsync(body, config);
 	}
 };
